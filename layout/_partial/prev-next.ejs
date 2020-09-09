@@ -1,0 +1,17 @@
+<%
+var hashCode = function (str) {
+    if (!str && str.length === 0) {
+        return 0;
+    }
+
+    var hash = 0;
+    for (var i = 0, len = str.length; i < len; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0;
+    }
+    return hash;
+};
+
+var featureimg = '/medias/featureimages/0.jpg';
+var featureImages = theme.featureImages;
+%>

@@ -1,0 +1,105 @@
+<% if (is_home() && page.current === 1) { %>
+<%- partial('_partial/index-cover') %>
+<% } else { %>
+    <%- partial('_partial/bg-cover') %>
+<% } %>
+
+<main class="content">
+
+    <% if (page.current === 1
+            && ((theme.music.enable)
+                    || theme.video.enable || theme.recommend.enable)) { %>
+    <div id="indexCard" class="index-card">
+        <div class="container ">
+            <div class="card">
+                <div class="card-content">
+                    <% if (theme.music.enable && !theme.music.fixed) { %>
+                        <%- partial('_widget/music') %>
+                        <% } %>
+
+                    <% if (theme.video.enable) { %>
+                        <%- partial('_widget/video') %>
+                    <% } %>
+
+                    <% if (theme.recommend.enable) { %>
+                    <div id="recommend-sections" class="recommend">
+                        <%- partial('_widget/recommend') %>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }%>
+
+    <%
+    var hashCode = function (str) {
+        if (!str && str.length === 0) {
+            return 0;
+        }
+
+        var hash = 0;
+        for (var i = 0, len = str.length; i < len; i++) {
+            hash = ((hash << 5) - hash) + str.charCodeAt(i);
+            hash |= 0;
+        }
+        return hash;
+    };
+    %>
+
+    <!-- 所有文章卡片 -->
+    <article id="articles" class="container articles">
+        <div class="row article-row">
+            <% page.posts.forEach(post => { %>
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="fontimg">
+                    <span class="first"><img style="width:20%" src=" https://cdn.jsdelivr.net/gh/PaddyLin-xum/tuku@master/img/logoko.png"></span>
+                    <span><img style="width:20%" src=" https://cdn.jsdelivr.net/gh/PaddyLin-xum/tuku@master/img/logoko.png"></span>
+                </div>
+                <div class="card">
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            <center>
+                            <% if (post.summary && post.summary.length > 0) { %>
+                                <%- post.summary %>
+                            <% } else { %>
+                                <%- strip_html(post.content).substring(0, 120) %>
+                            <% } %>
+                            </center>
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i><%= date(post.date, config.date_format) %>
+                            </span>
+                            <span class="publish-author">
+                                <i class="fas fa-user fa-fw"></i>Paddy
+                            </span>
+                        </div>
+                        <div class="cardcont">
+                        <ul>
+                            <li style="list-style: disc outside">申请加入本站的网盘，必须确保网盘绿色化，否则一切后果个人承担。
+                              Application to join the site's network disk, must ensure that the network disk green, otherwise all consequences of personal responsibility。</li>
+                            <li style="list-style: disc outside">
+                            本站收录网盘仅供学习交流使用，不得用于任何商业用途；请遵守您所在国家的法律法规，任何非法行为由使用者自身承担。The network disk included in this website is only for study and exchange, and shall not be used for any commercial purpose; please abide by the laws and regulations of your country, and any illegal behavior shall be borne by the user himself.</li>
+                            <li style="list-style: disc outside">
+                            本站所有资源均收集自互联网，没有提供资源存储，也未参与上传。若本站收录的资源涉及您的版权或知识产权或其他利益，请联系资源储存者。All resources of this site are collected from the Internet, no resource storage is provided, and no upload is involved. If the resources included in this website involve your copyright or intellectual property rights or other interests, please contact the resource repository.</li>
+                        </ul>
+                        </div>
+                    </div>
+
+                    <% if(post.tags && post.tags.length > 0) { %>
+                    <div class="card-action article-tags">
+                        <% post.tags.forEach(tag => { %>
+                        <a href="<%- url_for(tag.path) %>">
+                            <span class="chip bg-color"><%= tag.name %></span>
+                        </a>
+                        <% }); %>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </article>
+
+</main>
