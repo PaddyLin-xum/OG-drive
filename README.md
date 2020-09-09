@@ -1,5 +1,5 @@
 # 简介
-本项目是为了收录onedrive和googledrive而建立，网页是由[Matery](git push -u origin master)改造而来，欢迎大家来加入
+本项目是为了收录onedrive和googledrive而建立，网页是由[Matery](https://github.com/blinkfox/hexo-theme-matery)改造而来，欢迎大家来加入
 
 ![](https://cdn.jsdelivr.net/gh/PaddyLin-xum/tuku@master/img/ogbg.png)
 
